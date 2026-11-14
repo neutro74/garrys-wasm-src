@@ -1,0 +1,54 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>GameBox GPU backend test</title>
+<canvas id="c" width="64" height="64"></canvas>
+<script type="module">
+  import { createGpuBackend } from './backend.js';
+
+  const canvas = document.getElementById('c');
+  const results = {};
+  const log = (msg) => console.log(`[gpu-test] ${msg}`);
+
+  async function run(name) {
+    const out = { name };
+    try {
+      const backend = await createGpuBackend(canvas, { force: name });
+      out.adapter = backend.adapterInfo ?? null;
+      backend.clear([16, 200, 32, 255]);
+      out.clearPixel = Array.from(await backend.readPixels(1, 1));
+      backend.drawTriangle();
+      out.trianglePixels = [
+        Array.from(await backend.readPixels(32, 40)),
+        Array.from(await backend.readPixels(4, 4)),
+      ];
+      backend.dispose();
+      out.ok = out.clearPixel[1] > 150 && out.trianglePixels[1][0] < 40;
+    } catch (e) { out.ok = false; out.error = String(e.message || e); }
+    results[name] = out;
+    log(`${name}: ${out.ok ? 'PASS' : 'FAIL'} ${JSON.stringify(out)}`);
+    return out.ok;
+  }
+
+  // Try WebGPU first, then WebGL2, on separate canvases so contexts don't clash.
+  const webgpu = await run('webgpu', canvas);
+  const c2 = document.createElement('canvas');
+  c2.width = c2.height = 64;
+  const gl2 = await (async () => {
+    const out = { name: 'webgl2' };
+    try {
+      const backend = await createGpuBackend(c2, { force: 'webgl2' });
+      backend.clear([16, 200, 32, 255]);
+      out.clearPixel = Array.from(await backend.readPixels(1, 1));
+      backend.drawTriangle();
+      out.trianglePixels = [Array.from(await backend.readPixels(32, 20)), Array.from(await backend.readPixels(4, 4))];
+      backend.dispose();
+      out.ok = out.clearPixel[1] > 150 && out.trianglePixels[1][0] < 40;
+    } catch (e) { out.ok = false; out.error = String(e.message || e); }
+    results.webgl2 = out;
+    log(`webgl2: ${out.ok ? 'PASS' : 'FAIL'} ${JSON.stringify(out)}`);
+    return out.ok;
+  })();
+
+  window.__gpuResults = results;
+  log(`RESULT ${JSON.stringify({ webgpu, webgl2 })}`);
+</script>

@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>Panel test</title><body style="background:#000">
+<canvas id="c" width="1280" height="720" style="width:1280px;height:720px"></canvas>
+<script type="module">
+import { HtmlPanels } from '/web/html-panels.js';
+const events = [];
+const panels = new HtmlPanels(document.body, document.getElementById('c'), (ev) => events.push(ev));
+panels.handle({ type: 'create', id: 1 });
+panels.handle({ type: 'resize', id: 1, w: 1280, h: 720 });
+panels.handle({ type: 'open', id: 1, url: 'asset://garrysmod/html/menu.html' });
+setInterval(() => panels.layout([[1, { x: 0, y: 0, w: 1280, h: 720 }]], 1280, 720), 100);
+window.__events = () => events;
+window.__baseOf = () => { const d = document.querySelector('iframe').contentDocument; return d ? [d.baseURI, d.querySelector('base')?.outerHTML, d.scripts.length] : null; };
+</script>

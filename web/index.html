@@ -1,0 +1,16 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garry's Mod</title>
+<link rel="stylesheet" href="/web/launcher.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  canvas#screen { display: block; width: 100vw; height: 100vh; object-fit: contain; background: #000; }
+  /* The launcher shows progress and errors; this plain line is only the fallback if its script fails to load. */
+  #status { position: fixed; left: 12px; bottom: 12px; font: 13px system-ui, sans-serif; color: #ddd; text-shadow: 0 1px 3px #000; pointer-events: none; }
+  body.launcher-ready #status { visibility: hidden; }
+</style>
+<canvas id="screen" width="1280" height="720"></canvas>
+<div id="status">Starting...</div>
+<div id="launcher" hidden></div>
+<script type="module" src="/web/launcher.js"></script>

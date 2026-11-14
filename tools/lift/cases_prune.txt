@@ -1,0 +1,76 @@
+ucomisd xmm0, xmm1; seta al @f64sse @prune
+comiss xmm0, xmm1; seta al @sse @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0); seta al @fpu @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0); seta al @fpu @prune
+ucomisd xmm0, xmm1; setae al @f64sse @prune
+comiss xmm0, xmm1; setae al @sse @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0); setae al @fpu @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0); setae al @fpu @prune
+ucomisd xmm0, xmm1; setb al @f64sse @prune
+comiss xmm0, xmm1; setb al @sse @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0); setb al @fpu @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0); setb al @fpu @prune
+ucomisd xmm0, xmm1; setbe al @f64sse @prune
+comiss xmm0, xmm1; setbe al @sse @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0); setbe al @fpu @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0); setbe al @fpu @prune
+ucomisd xmm0, xmm1; sete al @f64sse @prune
+comiss xmm0, xmm1; sete al @sse @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0); sete al @fpu @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0); sete al @fpu @prune
+ucomisd xmm0, xmm1; setne al @f64sse @prune
+comiss xmm0, xmm1; setne al @sse @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0); setne al @fpu @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0); setne al @fpu @prune
+ucomisd xmm0, xmm1; setp al @f64sse @prune
+comiss xmm0, xmm1; setp al @sse @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0); setp al @fpu @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0); setp al @fpu @prune
+ucomisd xmm0, xmm1; setnp al @f64sse @prune
+comiss xmm0, xmm1; setnp al @sse @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0); setnp al @fpu @prune
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0); setnp al @fpu @prune
+shl eax, 1; seto al @prune
+rol eax, 1; seto al @prune
+imul eax, ecx; seto al @prune
+mul ecx; seto al @prune
+shr eax, 1; seto al @prune
+sar eax, 3; seto al @prune
+shl eax, 1; setno al @prune
+rol eax, 1; setno al @prune
+imul eax, ecx; setno al @prune
+mul ecx; setno al @prune
+shr eax, 1; setno al @prune
+sar eax, 3; setno al @prune
+shl eax, 1; setl al @prune
+rol eax, 1; setl al @prune
+shr eax, 1; setl al @prune
+sar eax, 3; setl al @prune
+shl eax, 1; setge al @prune
+rol eax, 1; setge al @prune
+shr eax, 1; setge al @prune
+sar eax, 3; setge al @prune
+shl eax, 1; sete al @prune
+rol eax, 1; sete al @prune
+shr eax, 1; sete al @prune
+sar eax, 3; sete al @prune
+shl eax, 1; setb al @prune
+rol eax, 1; setb al @prune
+imul eax, ecx; setb al @prune
+mul ecx; setb al @prune
+shr eax, 1; setb al @prune
+sar eax, 3; setb al @prune
+bsf eax, ecx; sete bl @prune
+bsr eax, ecx; setne bl @prune
+cmpxchg dword ptr [ebx], ecx; sete dl @prune
+cmpxchg dword ptr [ebx], ecx @prune
+add eax, ecx; adc edx, esi; setb bl @prune
+sub eax, ecx; sbb edx, 0; setl bl @prune
+cmp eax, ecx; cmovl edx, esi @prune
+inc eax; setc al @prune
+dec eax; sete al @prune
+neg eax; setb al @prune
+test eax, eax; setg al @prune
+mov ecx, 3; cmp eax, eax; again: lea eax, [eax+1]; loope again @prune
+mov ecx, 3; cmp eax, eax; again: lea eax, [eax+1]; loopne again @prune
+mov dword ptr [ebx], eax; mov dword ptr [ebx+4], edx; lock cmpxchg8b qword ptr [ebx]; sete cl @prune

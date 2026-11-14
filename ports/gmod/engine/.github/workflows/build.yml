@@ -1,0 +1,23 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build-wasm:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Build wasm
+      run: |
+        source emscripten/get_emscripten.sh
+        emmake emscripten/build.sh
+        cd build/install/
+        zip -r ../../out.zip *
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: release.zip
+        path: out.zip

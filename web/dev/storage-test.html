@@ -1,0 +1,11 @@
+<!doctype html><title>Storage regression</title><script type="module">
+import {openStorage,encodeBackup,decodeBackup} from '/web/storage.js';
+window.result={pending:true};
+try{const storage=await openStorage();window.storage=storage;
+const w=new Worker('/web/dev/storage-client.js',{type:'module'});
+const result=await new Promise(r=>{w.onmessage=e=>r(e.data);w.postMessage({buffer:storage.buffer,write:new URLSearchParams(location.search).has('write')});});
+w.terminate();
+const entries=await storage.request('export'),decoded=decodeBackup(await encodeBackup(entries).arrayBuffer());
+window.result={...result,backup:decoded.find(([p])=>p.endsWith('regression.sav'))?.[1]&&[...decoded.find(([p])=>p.endsWith('regression.sav'))[1]]};
+}catch(e){window.result={error:e.stack};}
+</script>

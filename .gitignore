@@ -1,0 +1,27 @@
+/tools/lift/.venv/
+/tools/lift/out/
+__pycache__/
+/packs/
+/ports/gmod/tmp/
+node_modules/
+run/
+/tools/lift/out-next/
+/dist/
+/tools/lift/out-abi/
+
+/tools/lift/out-loops/
+
+/tools/lift/out-region/
+
+# Derived from proprietary game binaries / user data: never publish
+/tools/lift/out-*/
+/third_party/binaryen/
+/screenshots/
+/ports/gmod/shots/
+/ports/gmod/compat/evidence-preserved-*/
+*.log
+*.wasm
+*.img
+*.db
+/"$out".log
+.claude/

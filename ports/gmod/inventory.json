@@ -1,0 +1,26 @@
+{
+  "bytes": 7352356727,
+  "files": 3061,
+  "formats": {
+    "other": 2895,
+    "PE/MZ": 166
+  },
+  "components": {
+    "garrysmod/bin/client.dll": {
+      "bytes": 8007496,
+      "type": "PE32 executable for MS Windows 6.00 (DLL), Intel i386, 6 sections"
+    },
+    "garrysmod/bin/server.dll": {
+      "bytes": 11816784,
+      "type": "PE32 executable for MS Windows 6.00 (DLL), Intel i386, 6 sections"
+    },
+    "garrysmod/bin/lua_shared.dll": {
+      "bytes": 557392,
+      "type": "PE32 executable for MS Windows 6.00 (DLL), Intel i386, 6 sections"
+    }
+  },
+  "lua": {
+    "exit": 1,
+    "stderr": "luajit: ...rysMod/garrysmod/gamemodes/sandbox/gamemode/commands.lua:23: ')' expected near '&'\nstack traceback:\n\t[C]: in function 'dofile'\n\t(command line):1: in main chunk\n\t[C]: at 0x556f1708cb00\n"
+  }
+}

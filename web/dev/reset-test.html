@@ -1,0 +1,24 @@
+<!doctype html><script type="module">
+import {D3D9Renderer} from '/runtime/d3d9/renderer.js';
+import {R,dst,src,dcl,inst,ver,asm} from '/runtime/d3d9/asm.js';
+window.result={pending:true};
+try{
+const c=new OffscreenCanvas(64,64),r=new D3D9Renderer(c),gl=r.gl;const failures=[];
+for(let i=0;i<5;i++){
+ if(i)r.destroy(i);
+ r.createSurface(i+1,{w:64,h:64,format:21,usage:1,present:true});
+ r.resize?.(64,64);r.S.rts=[i+1,0,0,0];r.S.viewport={x:0,y:0,w:64,h:64,minZ:0,maxZ:1};
+ r.clear(1,i%2?0xff00ff00:0xffff0000,1,0,null);r.present();
+ const e=gl.getError();if(e)failures.push([i,e]);
+ const bitmap=c.transferToImageBitmap();bitmap.close();
+ gl.bindFramebuffer(gl.FRAMEBUFFER,null);const status=gl.checkFramebufferStatus(gl.FRAMEBUFFER);if(status!==gl.FRAMEBUFFER_COMPLETE)failures.push([i,status]);
+}
+const vs=asm(ver('vs',2,0),dcl(0,0,R.INPUT,0),inst(1,dst(R.RASTOUT,0),src(R.INPUT,0)));
+const ps=asm(ver('ps',2,0),inst(1,dst(R.COLOROUT,0),src(R.CONST,0)));
+r.createShader(100,'vs',vs);r.createShader(101,'ps',ps);const program=r.program(r.res.get(100),r.res.get(101));
+if(program.pending)r.finishProgram(program);
+if(program.bad)throw Error('Shader compilation failed');
+if(r.glLive.Shader!==0)failures.push(['retained compiler shaders',r.glLive.Shader]);
+window.result={failures};
+}catch(e){window.result={error:e.stack};}
+</script>

@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {FrameMetrics} from '../runtime/d3d9/frame-metrics.js';
+const m=new FrameMetrics(5);
+assert.equal(m.snapshot().frames,0);
+m.record(0);m.record(33);m.record(66);m.record(99);m.record(132);m.record(232);
+assert.deepEqual(m.snapshot(),{frames:5,fps:1000*5/232,p50:33,p95:100,p99:100,max:100,overBudget:1});
+m.record(265);
+assert.equal(m.snapshot().frames,5);
+assert.equal(m.snapshot().max,100);
+for(let n=1;n<=5;n++)m.record(265+33*n);
+assert.equal(m.snapshot().max,33);
+assert.equal(m.snapshot().overBudget,0);
+console.log('PASS bounded frame history and percentile/stall accounting');

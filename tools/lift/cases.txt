@@ -1,0 +1,423 @@
+add eax, ebx
+add eax, 0x12345
+add al, bl
+add ax, 0x8001
+add ah, cl
+add dword ptr [ebx+4], ecx
+add ecx, dword ptr [ebx+ecx*2+8]
+add byte ptr [ebx], 0x80
+add esi, -1
+sub eax, ebx
+sub eax, 0x12345
+sub al, bl
+sub ax, 0x8001
+sub ah, cl
+sub dword ptr [ebx+4], ecx
+sub ecx, dword ptr [ebx+ecx*2+8]
+sub byte ptr [ebx], 0x80
+sub esi, -1
+and eax, ebx
+and eax, 0x12345
+and al, bl
+and ax, 0x8001
+and ah, cl
+and dword ptr [ebx+4], ecx
+and ecx, dword ptr [ebx+ecx*2+8]
+and byte ptr [ebx], 0x80
+and esi, -1
+or eax, ebx
+or eax, 0x12345
+or al, bl
+or ax, 0x8001
+or ah, cl
+or dword ptr [ebx+4], ecx
+or ecx, dword ptr [ebx+ecx*2+8]
+or byte ptr [ebx], 0x80
+or esi, -1
+xor eax, ebx
+xor eax, 0x12345
+xor al, bl
+xor ax, 0x8001
+xor ah, cl
+xor dword ptr [ebx+4], ecx
+xor ecx, dword ptr [ebx+ecx*2+8]
+xor byte ptr [ebx], 0x80
+xor esi, -1
+cmp eax, ebx
+cmp eax, 0x12345
+cmp al, bl
+cmp ax, 0x8001
+cmp ah, cl
+cmp dword ptr [ebx+4], ecx
+cmp ecx, dword ptr [ebx+ecx*2+8]
+cmp byte ptr [ebx], 0x80
+cmp esi, -1
+test eax, ebx
+test eax, 0x12345
+test al, bl
+test ax, 0x8001
+test ah, cl
+test dword ptr [ebx+4], ecx
+test ecx, dword ptr [ebx+ecx*2+8]
+test byte ptr [ebx], 0x80
+test esi, -1
+adc eax, ebx
+adc eax, 0x12345
+adc al, bl
+adc ax, 0x8001
+adc ah, cl
+adc dword ptr [ebx+4], ecx
+adc ecx, dword ptr [ebx+ecx*2+8]
+adc byte ptr [ebx], 0x80
+adc esi, -1
+sbb eax, ebx
+sbb eax, 0x12345
+sbb al, bl
+sbb ax, 0x8001
+sbb ah, cl
+sbb dword ptr [ebx+4], ecx
+sbb ecx, dword ptr [ebx+ecx*2+8]
+sbb byte ptr [ebx], 0x80
+sbb esi, -1
+inc eax
+inc cl
+inc word ptr [ebx]
+inc dword ptr [ebx+8]
+dec eax
+dec cl
+dec word ptr [ebx]
+dec dword ptr [ebx+8]
+neg eax
+neg cl
+neg word ptr [ebx]
+neg dword ptr [ebx+8]
+not eax
+not cl
+not word ptr [ebx]
+not dword ptr [ebx+8]
+shl eax, 1
+shl eax, 5 @ignore=of
+shl eax, cl @ignore=of
+shl al, 3 @ignore=of
+shl word ptr [ebx], 2 @ignore=of
+shr eax, 1
+shr eax, 5 @ignore=of
+shr eax, cl @ignore=of
+shr al, 3 @ignore=of
+shr word ptr [ebx], 2 @ignore=of
+sar eax, 1
+sar eax, 5 @ignore=of
+sar eax, cl @ignore=of
+sar al, 3 @ignore=of
+sar word ptr [ebx], 2 @ignore=of
+mov eax, ebx
+mov al, bh
+mov dword ptr [ebx+ecx*1], edx
+movzx eax, bl
+movzx eax, word ptr [ebx]
+movsx eax, cl
+movsx ecx, word ptr [ebx+2]
+movsx ax, bl
+lea eax, [ebx+ecx*4+7]
+lea edx, [esi*8]
+push eax; lea esp, [esp+4]
+push 0x1234; lea esp, [esp+4]
+push dword ptr [ebx]; lea esp, [esp+4]
+push eax; pop ecx
+push eax; pop dword ptr [ebx]
+xchg eax, ecx
+xchg dword ptr [ebx], edx
+cdq
+cwde
+cbw
+imul eax, ecx @ignore=zf,sf,pf
+imul eax, ecx, 100 @ignore=zf,sf,pf
+imul ecx @ignore=zf,sf,pf
+mul ecx @ignore=zf,sf,pf
+bswap eax
+push ebp; mov ebp, esp; leave
+nop
+xor eax, eax
+sete al
+setl cl
+setbe dl
+setg byte ptr [ebx]
+setp al
+cmp eax, ebx; cmovl eax, ecx
+cmp eax, ebx; cmova edx, esi
+test eax, eax; cmovs ecx, edx
+cmp eax, ecx; sete al
+cmp eax, ecx; setne al
+cmp eax, ecx; setb al
+cmp eax, ecx; setae al
+cmp eax, ecx; setbe al
+cmp eax, ecx; seta al
+cmp eax, ecx; sets al
+cmp eax, ecx; setns al
+cmp eax, ecx; setl al
+cmp eax, ecx; setge al
+cmp eax, ecx; setle al
+cmp eax, ecx; setg al
+cmp eax, ecx; seto al
+cmp eax, ecx; setno al
+cmp eax, ecx; setp al
+cmp eax, ecx; setnp al
+# ---- rotates / bits / strings ----
+rol eax, 3
+rol al, 1
+ror eax, cl @ignore=of
+rol word ptr [ebx], 4 @ignore=of
+shld eax, ecx, 5 @ignore=of
+shrd eax, ecx, 7 @ignore=of
+bt eax, ecx
+bts eax, 5
+btr eax, 9
+bsf eax, ecx @ignore=cf,sf,pf,of
+bsr eax, ecx @ignore=cf,sf,pf,of
+lahf
+sahf
+xadd dword ptr [ebx], eax
+cmpxchg dword ptr [ebx], ecx
+lock add dword ptr [ebx], eax
+lock inc dword ptr [ebx]
+mov edi, ebx; mov esi, ebx; add esi, 64; mov ecx, 5; rep movsd dword ptr es:[edi], dword ptr [esi]
+mov edi, ebx; mov ecx, 20; rep stosb
+mov edi, ebx; mov ecx, 9; rep stosd
+mov edi, ebx; mov esi, ebx; add esi, 8; mov ecx, 3; repe cmpsb
+mov edi, ebx; mov ecx, 30; repne scasb
+mov esi, ebx; lodsd @ignore=zf
+# ---- SSE (data seeded from float memory) ----
+addss xmm0, xmm1 @sse
+subss xmm0, dword ptr [ebx+4] @sse
+mulss xmm0, xmm2 @sse
+divss xmm0, xmm1 @sse
+minss xmm0, xmm1 @sse
+maxss xmm0, xmm1 @sse
+sqrtss xmm0, xmm1 @sse
+addsd xmm0, xmm1 @f32
+mulps xmm0, xmm1 @sse
+addps xmm0, xmm1 @sse
+subps xmm0, xmmword ptr [ebx+0x30] @sse
+divps xmm0, xmm1 @sse
+minps xmm0, xmm1 @sse
+maxps xmm0, xmm1 @sse
+xorps xmm0, xmm1 @sse
+andps xmm0, xmm1 @sse
+andnps xmm0, xmm1 @sse
+orps xmm0, xmm1 @sse
+movss xmm0, xmm1 @sse
+movss xmm0, dword ptr [ebx+8] @sse
+movss dword ptr [ebx+0x40], xmm1 @sse
+movaps xmm0, xmm2 @sse
+movhlps xmm0, xmm1 @sse
+movlhps xmm0, xmm1 @sse
+shufps xmm0, xmm1, 0x1b @sse
+shufps xmm0, xmm0, 0x55 @sse
+unpcklps xmm0, xmm1 @sse
+unpckhps xmm0, xmm1 @sse
+pshufd xmm0, xmm1, 0x93 @sse
+cvtsi2ss xmm0, eax @sse
+cvttss2si eax, xmm1 @sse
+cvtss2si eax, xmm1 @sse
+cvtss2sd xmm0, xmm1 @sse
+cvtsd2ss xmm0, xmm1 @sse
+cvtdq2ps xmm0, xmm1 @sse
+movd xmm0, eax @sse
+movd eax, xmm1 @sse
+movq xmm0, xmm1 @sse
+movmskps eax, xmm1 @sse
+pcmpeqd xmm0, xmm1 @sse
+paddd xmm0, xmm1 @sse
+comiss xmm0, xmm1 @sse
+ucomiss xmm0, dword ptr [ebx+4] @sse
+comisd xmm0, xmm1 @sse
+# ---- x87 ----
+fld qword ptr [ebx]; fstp qword ptr [ebx+0x40] @fpu
+fld dword ptr [ebx]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fadd qword ptr [ebx+8]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fsub qword ptr [ebx+8]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fsubr qword ptr [ebx+8]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fmul qword ptr [ebx+8]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fdiv qword ptr [ebx+8]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fdivr qword ptr [ebx+8]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; faddp st(1), st; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fsubp st(1), st; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fsubrp st(1), st; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fdivp st(1), st; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fdivrp st(1), st; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fmulp st(1), st; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fsub st(1), st; fstp qword ptr [ebx+0x40]; fstp qword ptr [ebx+0x48] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fsub st, st(1); fstp qword ptr [ebx+0x40]; fstp qword ptr [ebx+0x48] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fxch st(1); fstp qword ptr [ebx+0x40]; fstp qword ptr [ebx+0x48] @fpu
+fld qword ptr [ebx]; fchs; fabs; fchs; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fabs; fsqrt; fstp qword ptr [ebx+0x40] @fpu
+fld1; fldz; fadd; fstp qword ptr [ebx+0x40]; fstp qword ptr [ebx+0x48] @fpu
+fild dword ptr [ebx]; fstp qword ptr [ebx+0x40] @fpu
+fild word ptr [ebx]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fistp dword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fistp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fistp word ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fst dword ptr [ebx+0x40]; fstp qword ptr [ebx+0x48] @fpu
+fld qword ptr [ebx]; frndint; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcompp; fnstsw ax; mov [ebx+0x40], eax @fpu @ignore=cf,zf,sf,of,pf
+fld qword ptr [ebx]; fcomp qword ptr [ebx+8]; fnstsw ax; mov [ebx+0x40], eax @fpu @ignore=cf,zf,sf,of,pf
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fcomip st, st(1); fstp st(0) @fpu @ignore=of,sf
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fucomip st, st(1); fstp st(0) @fpu @ignore=of,sf
+fld qword ptr [ebx]; fldz; fcomip st, st(1); fstp st(0) @fpu @ignore=of,sf
+fld qword ptr [ebx]; fiadd dword ptr [ebx+0x10]; fstp qword ptr [ebx+0x40] @fpu
+fld qword ptr [ebx]; fnstcw word ptr [ebx+0x40]; fstp st(0) @fpu
+fld qword ptr [ebx]; fld qword ptr [ebx+8]; fpatan; fstp qword ptr [ebx+0x40] @fpu
+# ---- later additions ----
+rcl eax, 1 @ignore=of
+rcr eax, 3 @ignore=of
+rcl eax, cl @ignore=of
+bt dword ptr [ebx], 5
+bts dword ptr [ebx], 9
+bt dword ptr [ebx], ecx
+pshuflw xmm0, xmm1, 0x1b @sse
+pshufhw xmm0, xmm1, 0x93 @sse
+fld qword ptr [ebx]; fstp tbyte ptr [ebx+0x40]; fld tbyte ptr [ebx+0x40]; fstp qword ptr [ebx+0x50] @fpu
+fld qword ptr [ebx]; fstp tbyte ptr [ebx+0x40] @fpu
+push dword ptr [esp+0xc]; lea esp, [esp+4]
+push esp; lea esp, [esp+4]
+push dword ptr [esp]
+push ebp; pop dword ptr [esp+4]
+# movsd and friends (double data)
+movsd qword ptr [ebx+0x40], xmm1 @f64sse
+movsd xmm0, qword ptr [ebx+8] @f64sse
+movsd xmm0, xmm1 @f64sse
+unpcklpd xmm0, xmm1 @f64sse
+unpckhpd xmm0, xmm1 @f64sse
+punpcklbw xmm0, xmm1 @sse
+punpckhwd xmm0, xmm1 @sse
+punpckldq xmm0, xmm1 @sse
+punpckhqdq xmm0, xmm1 @sse
+punpcklqdq xmm0, xmm1 @sse
+pextrw eax, xmm1, 3 @sse
+pinsrw xmm0, eax, 5 @sse
+cmpltps xmm0, xmm1 @sse
+cmpnlepd xmm0, xmm1 @f64sse
+cmpeqss xmm0, xmm1 @sse
+cmpunordps xmm0, xmm1 @sse
+cmpltsd xmm0, xmm1 @f64sse
+cmpleps xmm0, xmmword ptr [ebx+0x30] @sse
+cmpneqss xmm0, dword ptr [ebx+8] @sse
+cmpordpd xmm0, xmm1 @f64sse
+# ---- double-precision SSE2 with real double data ----
+addsd xmm0, xmm1 @f64sse
+subsd xmm0, qword ptr [ebx+8] @f64sse
+mulsd xmm0, xmm1 @f64sse
+divsd xmm0, xmm1 @f64sse
+minsd xmm0, xmm1 @f64sse
+maxsd xmm0, xmm1 @f64sse
+sqrtsd xmm0, xmm1 @f64sse
+comisd xmm0, xmm1 @f64sse
+ucomisd xmm0, qword ptr [ebx+8] @f64sse
+cvtsi2sd xmm0, eax @f64sse
+cvttsd2si eax, xmm1 @f64sse
+cvtsd2si eax, xmm1 @f64sse
+xorpd xmm0, xmm1 @f64sse
+andpd xmm0, xmm1 @f64sse
+addpd xmm0, xmm1 @f64sse
+mulpd xmm0, xmm1 @f64sse
+maxpd xmm0, xmm1 @f64sse
+cvtdq2pd xmm0, xmm1 @f64sse
+cvtpd2ps xmm0, xmm1 @f64sse
+cvtps2pd xmm0, xmm1 @sse
+# Stack and table instructions used in retail DLLs.
+pushal; popal
+pushal; pop edi; pop esi; pop ebp; pop edx; pop ebx; pop ecx; pop eax; pop edx
+and eax, 0xff; xlatb
+mov ecx, 3; again: inc eax; loop again
+mov ecx, 3; cmp eax, eax; again: lea eax, [eax+1]; loope again
+mov ecx, 3; cmp eax, eax; again: lea eax, [eax+1]; loopne again
+mov ecx, 0x10000; jcxz done; inc eax; done: nop
+fld qword ptr [ebx]; fsincos; fstp qword ptr [ebx+16]; fstp qword ptr [ebx+24] @fpu
+rcpps xmm0, xmm1 @sse
+rsqrtps xmm0, xmm1 @sse
+lock cmpxchg8b qword ptr [ebx]
+mov dword ptr [ebx], eax; mov dword ptr [ebx+4], edx; lock cmpxchg8b qword ptr [ebx]
+bt ax, 0xd
+bt ax, 3
+bt ax, bx
+bts ax, 4
+btr ax, 0
+btc ax, 15
+bt si, 0xb
+bts cx, dx
+cvttps2dq xmm0, xmm1
+cvtps2dq xmm0, xmm1
+cvtps2dq xmm2, xmmword ptr [ebx]
+movntps xmmword ptr [ebx], xmm0
+
+movq mm0, mm1 @mmx
+movd mm0, eax; movd ecx, mm1 @mmx
+movd mm1, dword ptr [ebx+0x20] @mmx
+paddd mm0, mm1 @mmx
+paddw mm0, qword ptr [ebx+0x18] @mmx
+psubsw mm0, mm1 @mmx
+paddusb mm0, mm1 @mmx
+pmullw mm0, mm1 @mmx
+pmulhw mm0, mm1 @mmx
+pmulhw mm2, qword ptr [ebx+0x20] @mmx
+pmaddwd mm0, mm1 @mmx
+packssdw mm0, mm1 @mmx
+packsswb mm0, mm1 @mmx
+packuswb mm0, mm1 @mmx
+punpcklbw mm0, mm1 @mmx
+punpcklwd mm0, mm1 @mmx
+punpckldq mm0, mm1 @mmx
+punpckhbw mm0, mm1 @mmx
+punpckhwd mm0, mm1 @mmx
+punpckhdq mm0, mm1 @mmx
+punpckhwd mm0, qword ptr [ebx+0x18] @mmx
+psrad mm0, 7 @mmx
+psrad mm0, 40 @mmx
+psraw mm0, mm1 @mmx
+psrlq mm0, 3 @mmx
+psllq mm0, mm1 @mmx
+psrlw mm0, 15 @mmx
+pslld mm0, 33 @mmx
+pand mm0, mm1 @mmx
+pandn mm0, mm1 @mmx
+pxor mm0, mm0 @mmx
+pcmpgtw mm0, mm1 @mmx
+pcmpeqb mm0, mm1 @mmx
+movq qword ptr [ebx+0x40], mm2 @mmx
+movq mm0, qword ptr [ebx+0x20]; pmulhw mm0, mm1; packssdw mm0, mm2; punpcklwd mm1, mm0 @mmx
+cvttps2pi mm0, xmm1 @mmx
+cvtps2pi mm1, qword ptr [ebx+0x20] @mmx
+cvtpi2ps xmm1, mm0; movd eax, xmm1; pextrw ecx, xmm1, 3 @mmx
+movq mm0, mm1; emms @mmx
+# SSE2 mixer packing, signed high multiply and byte shifts (register/memory/alias edges).
+packssdw xmm0, xmm1 @sse
+packssdw xmm0, [ebx+0x10] @sse
+packssdw xmm0, xmm0 @sse
+pmulhw xmm0, xmm1 @sse
+pmulhw xmm0, [ebx+0x10] @sse
+pmulhw xmm0, xmm0 @sse
+psrldq xmm0, 0 @sse
+psrldq xmm0, 1 @sse
+psrldq xmm0, 8 @sse
+psrldq xmm0, 15 @sse
+psrldq xmm0, 16 @sse
+psrldq xmm0, 17 @sse
+psrldq xmm0, 255 @sse
+# bulk-memory fast paths for rep movs/stos (large counts, overlap, uniform and non-uniform fills, DF set)
+mov edi, ebx; mov esi, ebx; add esi, 512; mov ecx, 40; rep movsd dword ptr es:[edi], dword ptr [esi]
+mov edi, ebx; mov esi, ebx; add esi, 512; mov ecx, 200; rep movsb byte ptr es:[edi], byte ptr [esi]
+mov edi, ebx; add edi, 4; mov esi, ebx; mov ecx, 40; rep movsd dword ptr es:[edi], dword ptr [esi]
+mov edi, ebx; mov esi, ebx; add esi, 4; mov ecx, 40; rep movsd dword ptr es:[edi], dword ptr [esi]
+mov edi, ebx; add edi, 1; mov esi, ebx; mov ecx, 100; rep movsb byte ptr es:[edi], byte ptr [esi]
+mov edi, ebx; mov esi, ebx; add esi, 1; mov ecx, 100; rep movsb byte ptr es:[edi], byte ptr [esi]
+mov edi, ebx; add edi, 300; mov esi, ebx; add esi, 100; mov ecx, 80; rep movsb byte ptr es:[edi], byte ptr [esi]
+mov edi, ebx; xor eax, eax; mov ecx, 64; rep stosd
+mov edi, ebx; mov eax, 0x41414141; mov ecx, 64; rep stosd
+mov edi, ebx; mov ecx, 64; rep stosd
+mov edi, ebx; mov ecx, 150; rep stosb
+mov edi, ebx; mov ecx, 80; rep stosw
+mov edi, ebx; mov eax, 0x7f7f; mov ecx, 80; rep stosw
+mov edi, ebx; add edi, 200; mov ecx, 100; std; rep stosb; cld
+mov edi, ebx; add edi, 600; mov esi, ebx; add esi, 700; mov ecx, 50; std; rep movsd dword ptr es:[edi], dword ptr [esi]; cld
+mov edi, ebx; mov esi, ebx; add esi, 512; mov ecx, 0; rep movsd dword ptr es:[edi], dword ptr [esi]
+mov edi, ebx; mov ecx, 0; rep stosd

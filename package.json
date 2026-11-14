@@ -1,0 +1,21 @@
+{
+  "name": "garrys-wasm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node tools/test-runtime.mjs",
+    "test:lift": "tools/lift/.venv/bin/python tools/lift/difftest.py",
+    "package:web": "node tools/package-web.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@napi-rs/canvas": "^1.1.0"
+  },
+  "type": "module"
+}
