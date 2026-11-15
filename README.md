@@ -44,7 +44,7 @@ GMOD_ROOT="$HOME/.steam/steam/steamapps/common/GarrysMod" node web/server.mjs --
 Open http://127.0.0.1:8080/ for the launcher. Useful URL parameters: `?edition=base` skips the launcher,
 `?cmd=%2Bmap%20gm_construct` starts a map directly.
 
-Tests: `npm test` (runtime), `node --test tests/*.test.mjs`, `npm run test:lift`.
+Tests: `npm test` (unit + runtime), `npm run test:unit`, `npm run test:lift`.
 Headless browser smoke test: `node tools/web-test.mjs --seconds 60 --out run/web`.
 `package:web` builds a self-contained bundle (`npm run package:web`); user addons and saves are never included.
 
